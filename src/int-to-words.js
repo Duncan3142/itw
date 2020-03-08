@@ -19,7 +19,8 @@ function intToWords(input) {
     return 'zero';
   }
 
-  // Split input into 3 digit chunks, corresponding to SCALES, from right to left. Left pad where necessary.
+  // Split input into 3 digit chunks, corresponding to SCALES, from right to left.
+  // Left pad where necessary.
   // This means we'll be processing chunks from least significant to most significant.
 
   const CHUNK_LENGTH = 3;
@@ -29,7 +30,7 @@ function intToWords(input) {
     const end = start;
     start = Math.max(0, start - CHUNK_LENGTH);
     const rawChunk = significantDigits.slice(start, end);
-    chunks.push(rawChunk.padStart(CHUNK_LENGTH - rawChunk.length, '0'));
+    chunks.push(rawChunk.padStart(CHUNK_LENGTH, '0'));
   }
 
   // Check if we have enough scale words to describe the input
@@ -44,46 +45,49 @@ function intToWords(input) {
     const ALL_ZERO_PATTERN = /^0+$/;
     // Only process chunks with non zero components
     if (chunk.match(ALL_ZERO_PATTERN) === null) {
-      // Split chunk into digits, ordering from least significant to most significant
+      // Split chunk into digits
       const digits = chunk
         .split('')
-        .reverse()
         .map((char) => parseInt(char, 10));
 
+      const UNITS_INDEX = 2;
+      const TENS_INDEX = 1;
+      const HUNDREDS_INDEX = 0;
+
       // If tens integer is 1, i.e. 10, then add 10 to units integer
-      if (digits[1] === 1) {
-        digits[0] += 10;
+      if (digits[TENS_INDEX] === 1) {
+        digits[UNITS_INDEX] += 10;
       }
 
-      // Attempt scale word lookup
+      // Attempt word lookups
+      const unitWord = UNITS[digits[UNITS_INDEX]];
+      const tensWord = TENS[digits[TENS_INDEX]];
+      const hundredsWord = UNITS[digits[HUNDREDS_INDEX]];
       const scaleWord = SCALES[chunkIndex];
+
+      // Push found words onto words array, in reverse order
       if (scaleWord !== '') {
         words.push(scaleWord);
       }
 
-      // Attempt unit word lookup
-      const unitWord = UNITS[digits[0]];
       if (unitWord !== '') {
         words.push(unitWord);
       }
 
-      // Attempt tens word lookup
-      const tensWord = TENS[digits[1]];
       if (tensWord !== '') {
         words.push(tensWord);
       }
 
-      // Add 'and' string where we have a units amount, if...
-      if (digits[0] > 0 || digits[1] > 0) {
-        // Chunk has a hundreds integer, or more chunks to follow
-        if (digits[2] > 0 || (chunkIndex + 1) < chunksLen) {
+      // Add 'and' string where we have a units or tens word, if...
+      if (unitWord !== '' || tensWord !== '') {
+        // chunk has a hundreds word, or more chunks to follow
+        if (hundredsWord !== '' || chunkIndex < (chunksLen - 1)) {
           words.push('and');
         }
       }
 
-      // Add hundreds word if array item exists
-      if (UNITS[digits[2]]) {
-        words.push(`${UNITS[digits[2]]} hundred`);
+      if (hundredsWord !== '') {
+        words.push(`${hundredsWord} hundred`);
       }
     }
   });
