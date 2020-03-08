@@ -4,7 +4,7 @@ const CHUNK_LENGTH = 3;
 
 // Cut input into 3 digit chunks, corresponding to SCALES, from right to left
 // Left pad where necessary
-// This means we'll be processing chunks from least significant to most significant
+// This means we'll be processing chunks from least significant digits to most significant digits
 
 function cutChunk(remainder) {
   return {
