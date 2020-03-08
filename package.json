@@ -1,20 +1,29 @@
 {
-  "name": "pbdemo",
+  "name": "itw",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Int to words demo app",
+  "main": "src/index.js",
   "scripts": {
     "test": "jest --coverage",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "start": "node ."
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "debug": "^2.6.9",
+    "express": "^4.17.1",
+    "http-errors": "^1.7.3",
+    "morgan": "^1.9.1"
+  },
   "devDependencies": {
     "@types/jest": "^25.1.4",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^23.8.2",
+    "express-generator": "^4.16.1",
     "jest": "^25.1.0"
   },
   "engines": {
