@@ -11,7 +11,7 @@
     "test:jest": "jest --coverage",
     "test:lint": "eslint src/**/www src",
     "test": "npm run test:lint && npm run test:jest",
-    "start": "NODE_ENV=production pm2 start . && npx pm2 logs .",
+    "start": "pm2 start . && npx pm2 logs .",
     "stop": "pm2 delete .",
     "start-dev": "nodemon --inspect . --watch src"
   },

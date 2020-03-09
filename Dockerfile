@@ -11,7 +11,8 @@ COPY ./package.json package.json
 COPY ./package-lock.json package-lock.json
 RUN npm ci
 RUN npm test
-RUN npm prune --production
+ENV NODE_ENV=production
+RUN npm prune
 
 ENV PORT=$PORT
 EXPOSE $PORT
