@@ -5,9 +5,10 @@ module.exports = {
 		node: true,
 		jest: true
 	},
-	plugins: ["jest"],
+	plugins: ['jest', 'jsdoc'],
   extends: [
-		'plugin:jest/recommended',
+    'plugin:jest/recommended',
+    'plugin:jsdoc/recommended',
     'airbnb-base',
   ],
   globals: {
@@ -18,5 +19,7 @@ module.exports = {
     ecmaVersion: 2018,
   },
   rules: {
+    'no-unused-vars': ['error', { 'argsIgnorePattern': '^_' }],
+    'jsdoc/require-jsdoc': ['error', {'publicOnly': true}]
   },
 };

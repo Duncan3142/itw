@@ -2,11 +2,12 @@
   "name": "itw",
   "version": "1.0.0",
   "description": "Int to words demo app",
-  "main": "src/index.js",
+  "main": "src/www",
   "scripts": {
-    "test": "jest --coverage",
-    "lint": "eslint src",
-    "start": "node ."
+    "test:jest": "jest --coverage",
+    "test:lint": "eslint src",
+    "test": "npm run test:lint && npm run test:jest",
+    "start": "node --inspect ."
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +24,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-jsdoc": "^22.0.0",
     "express-generator": "^4.16.1",
     "jest": "^25.1.0"
   },
