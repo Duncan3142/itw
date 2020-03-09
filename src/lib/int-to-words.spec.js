@@ -1,4 +1,5 @@
-const { intToWords, errorCases } = require('./int-to-words');
+const { intToWords } = require('./int-to-words');
+const errorCases = require('./error-cases');
 
 describe('intToWords business logic', () => {
   test('"" to throw "NaN"', () => {

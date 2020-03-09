@@ -1,9 +1,5 @@
 const { UNITS, TENS, SCALES } = require('./number-words');
-
-// Define error cases
-const ERROR_OUT_OF_RANGE = 'Out of range';
-const ERROR_NAN = 'NaN';
-const errorCases = { NaN: ERROR_NAN, outOfRange: ERROR_OUT_OF_RANGE };
+const errorCases = require('./error-cases');
 
 // Cut input into 3 digit chunks, corresponding to SCALES, from right to left
 // Left pad where necessary
@@ -25,7 +21,7 @@ const HUNDREDS_INDEX = 0;
 function processChunk(chunk, chunkIndex, collector) {
   if (chunkIndex === SCALES.length) {
     // Insufficient scale words to describe input
-    throw new Error(ERROR_OUT_OF_RANGE);
+    throw new Error(errorCases.outOfRange);
   }
 
   const { value, remainder } = chunk;
@@ -87,7 +83,7 @@ function validateInput(input) {
 
   // Check for valid number format
   if (match === null) {
-    throw new Error(ERROR_NAN);
+    throw new Error(errorCases.NaN);
   }
 
   // Valid number, discard leading zeros (if any)
@@ -115,4 +111,4 @@ function intToWords(input) {
   return words.reverse().join(' ');
 }
 
-module.exports = { intToWords, errorCases };
+module.exports = { intToWords };
