@@ -18,7 +18,6 @@
   "author": "Duncan Giles",
   "license": "ISC",
   "dependencies": {
-    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "http-errors": "^1.7.3",
     "log4js": "^6.1.2",
@@ -34,7 +33,6 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-jsdoc": "^22.0.0",
-    "express-generator": "^4.16.1",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
