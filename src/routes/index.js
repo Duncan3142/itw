@@ -2,7 +2,7 @@ const express = require('express');
 const createError = require('http-errors');
 
 const router = express.Router();
-const { intToWords, errorCases } = require('../int-to-words');
+const { intToWords, errorCases } = require('../lib/int-to-words');
 
 /* GET words handler. */
 router.get('/:int', (req, res, next) => {
