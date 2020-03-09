@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Int to words demo app",
   "main": "src/www",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Duncan3142/itw.git"
+  },
   "scripts": {
     "test:jest": "jest --coverage",
     "test:lint": "eslint src/**/www src",
