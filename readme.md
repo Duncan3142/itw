@@ -15,6 +15,9 @@ For example:
 
 - Input is a positive integer, consisting solely of decimal digits
 
-## Tests
+## Build & Tests
 
-Run `npm test` to execute tests
+Run `make` to build the docker image and execute tests
+
+## Launch
+Run `make start` and `make stop` to start and stop the server
