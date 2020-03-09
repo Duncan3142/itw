@@ -21,3 +21,6 @@ Run `make` to build the docker image and execute tests
 
 ## Launch
 Run `make start` and `make stop` to start and stop the server
+
+## Invoke
+Url: `hostname[:port]/number`
