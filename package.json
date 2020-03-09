@@ -19,6 +19,8 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@types/jest": "^25.1.4",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -26,8 +28,15 @@
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-jsdoc": "^22.0.0",
     "express-generator": "^4.16.1",
+    "husky": "^4.2.3",
     "jest": "^25.1.0"
   },
+  "husky": {
+		"hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm test"
+		}
+	},
   "engines": {
     "node": "12"
   }
