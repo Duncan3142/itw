@@ -1,11 +1,11 @@
 const createError = require('http-errors');
 const express = require('express');
-const logger = require('morgan');
+const httpLogs = require('morgan');
 
 const router = require('./routes');
 
 const app = express();
-app.use(logger('dev'));
+app.use(httpLogs('dev'));
 
 app.use('/', router);
 

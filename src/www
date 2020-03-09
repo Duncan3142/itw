@@ -6,7 +6,15 @@
 
 const debug = require('debug')('itw:server');
 const http = require('http');
+const log4js = require('log4js');
 const app = require('./app');
+
+/**
+ * Create log instance
+ */
+const logger = log4js.getLogger('server');
+logger.level = 'debug';
+
 
 /**
  * Normalize a port into a number, string, or false.
@@ -57,11 +65,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(`${bind} requires elevated privileges`);
+      logger.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(`${bind} is already in use`);
+      logger.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:

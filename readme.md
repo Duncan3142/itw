@@ -14,3 +14,7 @@ For example:
 ## Assumptions
 
 - Input is a positive integer, consisting solely of decimal digits
+
+## Tests
+
+Run `npm test` to execute tests

@@ -5,9 +5,10 @@
   "main": "src/www",
   "scripts": {
     "test:jest": "jest --coverage",
-    "test:lint": "eslint src",
+    "test:lint": "eslint src/**/www src",
     "test": "npm run test:lint && npm run test:jest",
-    "start": "node --inspect ."
+    "start": "node .",
+    "start-dev": "node --inspect ."
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "http-errors": "^1.7.3",
+    "log4js": "^6.1.2",
     "morgan": "^1.9.1"
   },
   "devDependencies": {
@@ -29,14 +31,15 @@
     "eslint-plugin-jsdoc": "^22.0.0",
     "express-generator": "^4.16.1",
     "husky": "^4.2.3",
-    "jest": "^25.1.0"
+    "jest": "^25.1.0",
+    "supertest": "^4.0.2"
   },
   "husky": {
-		"hooks": {
+    "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "npm test"
-		}
-	},
+    }
+  },
   "engines": {
     "node": "12"
   }

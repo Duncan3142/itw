@@ -25,12 +25,13 @@ const HUNDREDS_INDEX = 0;
 function processChunk(chunk, chunkIndex, collector) {
   if (chunkIndex === SCALES.length) {
     // Insufficient scale words to describe input
-    const result = [];
-    result.push(ERROR_OUT_OF_RANGE);
-    return result;
+    throw new Error(ERROR_OUT_OF_RANGE);
   }
 
   const { value, remainder } = chunk;
+
+  // Decide if this is the final recursion
+  const moreToFollow = remainder.length > 0;
 
   // Only process chunks with non zero components
   if (value !== '000') {
@@ -64,7 +65,7 @@ function processChunk(chunk, chunkIndex, collector) {
     // Add 'and' string where we have a units or tens word, if...
     if (unitsWord !== '' || tensWord !== '') {
       // chunk has a hundreds word, or more chunks to follow
-      if (hundredsWord !== '' || remainder.length > 0) {
+      if (hundredsWord !== '' || moreToFollow) {
         collector.push('and');
       }
     }
@@ -74,9 +75,23 @@ function processChunk(chunk, chunkIndex, collector) {
     }
   }
 
-  return remainder.length > 0
+  return moreToFollow
     ? processChunk(cutChunk(remainder), chunkIndex + 1, collector)
     : collector;
+}
+
+function validateInput(input) {
+  // Regex to remove leading zeros and exclude non numeric chars
+  const VALID_PATTERN = /^(0*)([0-9]+)$/;
+  const match = input.trim().match(VALID_PATTERN);
+
+  // Check for valid number format
+  if (match === null) {
+    throw new Error(ERROR_NAN);
+  }
+
+  // Valid number, discard leading zeros (if any)
+  return match[2];
 }
 
 /**
@@ -85,17 +100,8 @@ function processChunk(chunk, chunkIndex, collector) {
  * @returns {string} - English words representation of positive integer
  */
 function intToWords(input) {
-  // Regex to remove leading zeros and exclude non numeric chars
-  const VALID_PATTERN = /^(0*)([0-9]+)$/;
-  const match = input.trim().match(VALID_PATTERN);
-
-  // Check is a number is valid format
-  if (match === null) {
-    return ERROR_NAN;
-  }
-
-  // Is valid number, discard leading zeros (if any)
-  const significantDigits = match[2];
+  // Sanitize input
+  const significantDigits = validateInput(input);
 
   // Check for zero value
   if (significantDigits === '0') {
