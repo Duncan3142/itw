@@ -1,10 +1,15 @@
 const { UNITS, TENS, SCALES } = require('./number-words');
 
-const CHUNK_LENGTH = 3;
+// Define error cases
+const ERROR_OUT_OF_RANGE = 'Out of range';
+const ERROR_NAN = 'NaN';
+const errorCases = { NaN: ERROR_NAN, outOfRange: ERROR_OUT_OF_RANGE };
 
 // Cut input into 3 digit chunks, corresponding to SCALES, from right to left
 // Left pad where necessary
 // This means we'll be processing chunks from least significant digits to most significant digits
+
+const CHUNK_LENGTH = 3;
 
 function cutChunk(remainder) {
   return {
@@ -21,7 +26,7 @@ function processChunk(chunk, chunkIndex, collector) {
   if (chunkIndex === SCALES.length) {
     // Insufficient scale words to describe input
     const result = [];
-    result.push('Out of range');
+    result.push(ERROR_OUT_OF_RANGE);
     return result;
   }
 
@@ -32,13 +37,13 @@ function processChunk(chunk, chunkIndex, collector) {
     // Split chunk into digits
     const digits = value.split('').map((char) => parseInt(char, 10));
 
-    // If tens integer is 1, i.e. 10, then add 10 to units integer
+    // If tens integer is 1, i.e. 10, add 10 to units integer
     if (digits[TENS_INDEX] === 1) {
       digits[UNITS_INDEX] += 10;
     }
 
     // Attempt word lookups
-    const unitWord = UNITS[digits[UNITS_INDEX]];
+    const unitsWord = UNITS[digits[UNITS_INDEX]];
     const tensWord = TENS[digits[TENS_INDEX]];
     const hundredsWord = UNITS[digits[HUNDREDS_INDEX]];
     const scaleWord = SCALES[chunkIndex];
@@ -48,8 +53,8 @@ function processChunk(chunk, chunkIndex, collector) {
       collector.push(scaleWord);
     }
 
-    if (unitWord !== '') {
-      collector.push(unitWord);
+    if (unitsWord !== '') {
+      collector.push(unitsWord);
     }
 
     if (tensWord !== '') {
@@ -57,7 +62,7 @@ function processChunk(chunk, chunkIndex, collector) {
     }
 
     // Add 'and' string where we have a units or tens word, if...
-    if (unitWord !== '' || tensWord !== '') {
+    if (unitsWord !== '' || tensWord !== '') {
       // chunk has a hundreds word, or more chunks to follow
       if (hundredsWord !== '' || remainder.length > 0) {
         collector.push('and');
@@ -74,6 +79,11 @@ function processChunk(chunk, chunkIndex, collector) {
     : collector;
 }
 
+/**
+ *
+ * @param {string} input - Decimal string representation of positive integer
+ * @returns {string} - English words representation of positive integer
+ */
 function intToWords(input) {
   // Regex to remove leading zeros and exclude non numeric chars
   const VALID_PATTERN = /^(0*)([0-9]+)$/;
@@ -81,7 +91,7 @@ function intToWords(input) {
 
   // Check is a number is valid format
   if (match === null) {
-    return 'NaN';
+    return ERROR_NAN;
   }
 
   // Is valid number, discard leading zeros (if any)
@@ -99,4 +109,4 @@ function intToWords(input) {
   return words.reverse().join(' ');
 }
 
-module.exports = intToWords;
+module.exports = { intToWords, errorCases };

@@ -1,19 +1,19 @@
-const intToWords = require('./int-to-words');
+const { intToWords, errorCases } = require('./int-to-words');
 
 test('"" to return "NaN"', () => {
-  expect(intToWords('')).toBe('NaN');
+  expect(intToWords('')).toBe(errorCases.NaN);
 });
 
 test('"qwerty" to return "NaN"', () => {
-  expect(intToWords('qwerty')).toBe('NaN');
+  expect(intToWords('qwerty')).toBe(errorCases.NaN);
 });
 
 test('"1 2" to return "NaN"', () => {
-  expect(intToWords('1 2')).toBe('NaN');
+  expect(intToWords('1 2')).toBe(errorCases.NaN);
 });
 
 test('"0x2" to return "NaN"', () => {
-  expect(intToWords('0x2')).toBe('NaN');
+  expect(intToWords('0x2')).toBe(errorCases.NaN);
 });
 
 test('"0" to return "zero"', () => {
@@ -69,5 +69,5 @@ test('"1121001" to return "one million one hundred and twenty one thousand and o
 });
 
 test('"1000000000000000000000" to return "Out of range"', () => {
-  expect(intToWords('1000000000000000000000')).toBe('Out of range');
+  expect(intToWords('1000000000000000000000')).toBe(errorCases.outOfRange);
 });
