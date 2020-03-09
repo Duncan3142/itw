@@ -4,14 +4,15 @@ ARG PORT=80
 
 WORKDIR /server
 
-COPY ./src src
-COPY ./jest.config.js jest.config.js
-COPY ./.eslintrc.js .eslintrc.js
 COPY ./package.json package.json
 COPY ./package-lock.json package-lock.json
 RUN npm ci
-RUN npm test
+COPY ./jest.config.js jest.config.js
+COPY ./.eslintrc.js .eslintrc.js
+COPY ./src src
+
 ENV NODE_ENV=production
+RUN npm test
 RUN npm prune
 
 ENV PORT=$PORT
