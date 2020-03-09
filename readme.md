@@ -20,7 +20,7 @@ For example:
 Run `make` to build the docker image and execute tests
 
 ## Launch
-Run `make start` and `make stop` to start and stop the server
+Run `make start` and `make stop` to start and stop the server, noting the host port assigned by docker
 
 ## Invoke
 Url: `hostname[:port]/number`
