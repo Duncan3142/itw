@@ -5,11 +5,12 @@ module.exports = {
 		node: true,
 		jest: true
 	},
-	plugins: ['jest', 'jsdoc'],
+	plugins: ['jest', 'jsdoc', 'prettier'],
   extends: [
     'plugin:jest/recommended',
     'plugin:jsdoc/recommended',
     'airbnb-base',
+    'plugin:prettier/recommended' // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors.
   ],
   globals: {
     Atomics: 'readonly',

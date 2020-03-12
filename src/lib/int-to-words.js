@@ -32,7 +32,7 @@ function processChunk(chunk, chunkIndex, collector) {
   // Only process chunks with non zero components
   if (value !== '000') {
     // Split chunk into digits
-    const digits = value.split('').map((char) => parseInt(char, 10));
+    const digits = value.split('').map(char => parseInt(char, 10));
 
     // If tens integer is 1, i.e. 10, add 10 to units integer
     if (digits[TENS_INDEX] === 1) {
@@ -71,9 +71,7 @@ function processChunk(chunk, chunkIndex, collector) {
     }
   }
 
-  return moreToFollow
-    ? processChunk(cutChunk(remainder), chunkIndex + 1, collector)
-    : collector;
+  return moreToFollow ? processChunk(cutChunk(remainder), chunkIndex + 1, collector) : collector;
 }
 
 function validateInput(input) {
