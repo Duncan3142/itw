@@ -50,6 +50,10 @@ describe('intToWords business logic', () => {
     expect(intToWords('120')).toBe('one hundred and twenty');
   });
 
+  test('"114" to return "one hundred and fourteen"', () => {
+    expect(intToWords('114')).toBe('one hundred and fourteen');
+  });
+
   test('"4678" to return "four thousand six hundred and seventy eight"', () => {
     expect(intToWords('4678')).toBe('four thousand six hundred and seventy eight');
   });
