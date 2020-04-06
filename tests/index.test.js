@@ -1,6 +1,6 @@
 const supertest = require('supertest');
-const app = require('../app');
-const errorCases = require('../lib/error-cases');
+const app = require('../src/app');
+const errorCases = require('../src/lib/error-cases');
 
 describe('GET /:int', () => {
   test('Out of range input', async () => {
